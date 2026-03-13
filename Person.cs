@@ -8,10 +8,9 @@ namespace College_system
 {
     public class Person
     {
-
-        static int _counter = 1; // كاونتر لل ID
-        public int ID { get; } // من غير سيت عشان الكونستراكتور هو بس اللي يحطه
-        string _nationalId = string.Empty;
+        protected static int _counter = 1; // بروتيكديت برضو عشان الكلاسات الوارثه بس هي اللي تشوفه 
+        public string ID { get; protected set; } // بروتيكديت سيت بتخلي الكلاسات الوارثه بس هي اللي يغير فيه
+        string _nationalId = string.Empty;       
 
         string _name = string.Empty;
         DateOnly _birthDate;
@@ -27,7 +26,7 @@ namespace College_system
         }
         public Person(string nationalId, string name, DateOnly birthDate, string gender, string phone, string email, string address)
         {
-            ID = _counter++;
+            ID = $"{_counter++}";
             NationalId = nationalId;
             Name = name;
             BirthDate = birthDate;
@@ -35,15 +34,21 @@ namespace College_system
             Phone = phone;
             Email = email;
             Address = address;
+          //property = parameter
+
         }
         public string NationalId
         {
             set
             {
-                if (value.Length != 14)
-                    Console.WriteLine("the national ID most be 11 number");
-                else
-                    _nationalId = value;
+                while (value.Length! < 14 || value.Length! > 14)
+                {
+                    Console.WriteLine("the national ID most be 14 number");
+                    Console.Write("pleas enter again: ");
+                    value = Console.ReadLine()!;
+                    continue;
+                }
+                _nationalId = value;
             }
             get { return _nationalId; }
         }
@@ -52,7 +57,7 @@ namespace College_system
             set
             {
                 if (string.IsNullOrEmpty(value))
-                    Console.WriteLine("name is not correct");
+                    Console.WriteLine("name is incorrect!");
                 else
                     _name = value;
             }
@@ -63,7 +68,7 @@ namespace College_system
             set
             {
                 if (value >= DateOnly.FromDateTime(DateTime.Now))// حولنا الديت تايم دوت ناو ل ديت اونلي عشان نعرف نقارنهم ببعض
-                    Console.WriteLine("birthDate is not correct");
+                    Console.WriteLine("birthDate is incorrect!");
                 else
                 {
                     int age = DateTime.Now.Year - value.Year; // حساب العمر 
@@ -95,7 +100,7 @@ namespace College_system
             set
             {
                 if (value.Length != 11 || !value.StartsWith("01"))// لو مش مكون من 11 رقم او مش بادئ ب01
-                    Console.WriteLine("phone is not correct");
+                    Console.WriteLine("phone is incorrect!");
                 else
                     _phone = value;
             }
@@ -106,7 +111,7 @@ namespace College_system
             set
             {
                 if (!value.Contains('@') || !value.Contains('.'))// لو مفيهوش علامات الemail الاساسيه
-                    Console.WriteLine("email is not correct");
+                    Console.WriteLine("email is incorrect!");
                 else
                     _email = value;
             }
@@ -117,43 +122,13 @@ namespace College_system
             set
             {
                 if (string.IsNullOrEmpty(value) || value.Length < 10)// لو العنوان فاضي او اقل من 10 حروف
-                    Console.WriteLine("address is not correct");
+                    Console.WriteLine("address is incorrect!");
                 else
                     _address = value;
             }
             get { return _address; }
         }
-        public virtual void Display() => Console.WriteLine($"Id: {ID}\nname: {_name}\nnational Id : {_nationalId}\nbirth date : {_birthDate}\ngender: {_gender}\nphone: {_phone}\nemail: {_email}address: {_address}");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        public virtual void Display() => Console.WriteLine($"Id: {ID}\nname: {_name}\nnational Id : {_nationalId}\nbirth date : {_birthDate}\ngender: {_gender}\nphone: {_phone}\nemail:{_email}\naddress:{_address}");
     }
 }
 

@@ -8,14 +8,19 @@ namespace College_system
 {
     public class Employee : Person
     {
-        public double _salary { get; set; }
+        public double Salary { get; set; }
         string _jobTitle = null!;
-        DateOnly _hireDate;
+        DateOnly HireDate;
+        public Employee() 
+        {
+        
+        }
         public Employee(string nationalId, string name, DateOnly birthDate, string gender, string phone, string email, string address, double salary, string jobTitle, DateOnly hireDate) : base( nationalId, name, birthDate, gender, phone, email, address)
         {
-            _salary = salary;
-            _jobTitle = jobTitle;
-            _hireDate = hireDate;
+            ID = $"A{_counter}";
+            Salary = salary;
+            JobTitle = jobTitle;
+            HireDate = hireDate;
         }
         public string JobTitle
         {
@@ -28,21 +33,10 @@ namespace College_system
                     _jobTitle = value;
             }
         }
-        public DateOnly HireDate
-        {
-            get { return _hireDate; }
-            set
-            {
-                if (value > DateOnly.FromDateTime(DateTime.Now))
-                    Console.WriteLine("The Hire Date is incorrect!");
-                else
-                    _hireDate = value;
-            }
-        }
         public override void Display()
         {
             base.Display(); // بيطبع بيانات Person الأول
-            Console.WriteLine($"salary: {Salary}\njobTitle: {_jobTitle}\nHire Date: {_hireDate}");
+            Console.Write($"salary: {Salary}\njobTitle: {_jobTitle}\nHire Date: {HireDate}");
         }
     }
 }
