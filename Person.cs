@@ -1,24 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-
+using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace College_system
 {
     public class Person
     {
         protected static int _counter = 1; // بروتيكديت برضو عشان الكلاسات الوارثه بس هي اللي تشوفه 
-        public string ID { get; protected set; } // بروتيكديت سيت بتخلي الكلاسات الوارثه بس هي اللي يغير فيه
+        public string? ID { get; protected set; } // بروتيكديت سيت بتخلي الكلاسات الوارثه بس هي اللي يغير فيه
         string _nationalId = string.Empty;       
 
-        string _name = string.Empty;
+        string? _name ;
         DateOnly _birthDate;
-        string _gender = string.Empty;
+        string? _gender;
 
         string _phone = string.Empty;
-        string _email = string.Empty;
-        string _address = string.Empty;
+        string _email;
+        string _address;
 
         public Person()
         {
@@ -41,23 +42,19 @@ namespace College_system
         {
             set
             {
-                while (value.Length! < 14 || value.Length! > 14)
-                {
-                    Console.WriteLine("the national ID most be 14 number");
-                    Console.Write("pleas enter again: ");
-                    value = Console.ReadLine()!;
-                    continue;
-                }
-                _nationalId = value;
+                if (value.Length! < 14 || value.Length! > 14)
+                    throw new ArgumentException("the national ID most be 14 number");
+                else
+                   _nationalId = value;
             }
             get { return _nationalId; }
         }
-        public string Name
+        public string? Name
         {
             set
             {
-                if (string.IsNullOrEmpty(value))
-                    Console.WriteLine("name is incorrect!");
+                if (string.IsNullOrEmpty(value) || value.Any(r=>char.IsDigit(r)))
+                    throw new ArgumentException("name is incorrect!");
                 else
                     _name = value;
             }
@@ -67,29 +64,25 @@ namespace College_system
         {
             set
             {
-                if (value >= DateOnly.FromDateTime(DateTime.Now))// حولنا الديت تايم دوت ناو ل ديت اونلي عشان نعرف نقارنهم ببعض
-                    Console.WriteLine("birthDate is incorrect!");
-                else
-                {
-                    int age = DateTime.Now.Year - value.Year; // حساب العمر 
-                    if (DateTime.Now.DayOfYear < value.DayOfYear)
-                        age--;
+                int age = DateTime.Now.Year - value.Year;
+                if (DateTime.Now.DayOfYear < value.DayOfYear)
+                    age--;
 
-                    if (age <= 18)
-                        Console.WriteLine("the age most be over 18");
-                    else
-                        _birthDate = value;
-                }
+                if (value >= DateOnly.FromDateTime(DateTime.Now) || age < 17)
+                    throw new ArgumentException("❌ التاريخ غلط!");
+                else
+                    _birthDate = value;
             }
             get { return _birthDate; }
         }
-        public string Gender
+        public string? Gender
         {
             set
             {
                 value = value.Trim().ToLower();// لو فيه مسافات او حروف كبيره
                 if (value != "male" && value != "female")
-                    Console.WriteLine("gender most be female or male ");
+                throw new ArgumentException("gender most be female or male");
+
                 else
                     _gender = value;
             }
@@ -100,7 +93,8 @@ namespace College_system
             set
             {
                 if (value.Length != 11 || !value.StartsWith("01"))// لو مش مكون من 11 رقم او مش بادئ ب01
-                    Console.WriteLine("phone is incorrect!");
+                    throw new ArgumentException("phone is incorrect!");
+
                 else
                     _phone = value;
             }
@@ -111,18 +105,18 @@ namespace College_system
             set
             {
                 if (!value.Contains('@') || !value.Contains('.'))// لو مفيهوش علامات الemail الاساسيه
-                    Console.WriteLine("email is incorrect!");
+                    throw new ArgumentException("email is incorrect!");
                 else
                     _email = value;
             }
             get { return _email; }
         }
-        public string Address
+        public string? Address
         {
             set
             {
                 if (string.IsNullOrEmpty(value) || value.Length < 10)// لو العنوان فاضي او اقل من 10 حروف
-                    Console.WriteLine("address is incorrect!");
+                    throw new ArgumentException("address is incorrect!");
                 else
                     _address = value;
             }

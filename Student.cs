@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Net;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -10,28 +11,32 @@ namespace College_system
 {
     internal class Student : Person
     {
-         string Major {  get; set; }
-         int _level;
-         double _gpa;
-         bool IsPaid {  get; set; }
+        static int _studentCounter = 1;
+        string Major {  get; set; }
+        bool IsPaid { get; set; }
+        string DepartmentID { get; set; }
+        int _level;
+        double _gpa;
         public Student()
         {
 
         }
-        public Student (string nationalId, string name, DateOnly birthDate, string gender, string phone, string email, string address, string major, int level, double gpa ,bool isPaid) : base(nationalId, name, birthDate, gender, phone, email, address)
+        public Student (string nationalId, string name, DateOnly birthDate, string gender, string phone, string email, string address, string major, int level, double gpa ,bool isPaid, string departmentId) : base(nationalId, name, birthDate, gender, phone, email, address)
         {
-            ID = $"S{level}{_counter++}";
+            //     ex level 1 dept 2 (code)
+            ID = $"S{level}{DepartmentID}{_studentCounter++}";  // 
             Major = major; // بنعرف ان الفيلدس الي بره هي هي اللي هتتبعت في الميثود 
             Level = level;
             Gpa = gpa;
             IsPaid = isPaid;
+            DepartmentID = departmentId;
         }
         public int Level
         {
             set
             {
                 if (value < 1 || value > 4)
-                    Console.WriteLine("the level is incorrect!");
+                    throw new AggregateException("the level is incorrect!");
             }
             get { return _level; }
         }
@@ -40,7 +45,7 @@ namespace College_system
             set
             {
                 if (value < 0 || value > 4)
-                    Console.WriteLine("the level is incorrect!");
+                    throw new AggregateException("the level is incorrect!");
             }
             get { return _gpa; }
         }

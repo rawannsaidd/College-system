@@ -9,33 +9,45 @@ namespace College_system
     public class Employee : Person
     {
         public double Salary { get; set; }
+        static int _studentCounter = 1;
         string _jobTitle = null!;
-        DateOnly HireDate;
+        DateOnly _hiredate;
         public Employee() 
         {
         
         }
-        public Employee(string nationalId, string name, DateOnly birthDate, string gender, string phone, string email, string address, double salary, string jobTitle, DateOnly hireDate) : base( nationalId, name, birthDate, gender, phone, email, address)
+        public Employee(string nationalId, string name, DateOnly birthDate, string gender, string phone, string email, string address, double salary, string jobTitle, DateOnly hiredate) : base( nationalId, name, birthDate, gender, phone, email, address)
         {
             ID = $"A{_counter}";
             Salary = salary;
             JobTitle = jobTitle;
-            HireDate = hireDate;
+            HireDate = hiredate;
         }
         public string JobTitle
         {
-            get { return _jobTitle; }
             set
             {
                 if (string.IsNullOrEmpty(value))
-                    Console.WriteLine("The job title is incorrect!");
+                    throw new AggregateException("The job title is incorrect!");
                 else
                     _jobTitle = value;
             }
+            get { return _jobTitle; }
+        }
+        public DateOnly HireDate
+        {
+            set
+            {
+                if (value > DateOnly.FromDateTime(DateTime.Now))
+                    throw new ArgumentException("❌ تاريخ التعيين مش صح!");
+                else
+                    _hiredate = value;
+            }
+            get { return _hiredate; }
         }
         public override void Display()
         {
-            base.Display(); // بيطبع بيانات Person الأول
+            base.Display(); 
             Console.Write($"salary: {Salary}\njobTitle: {_jobTitle}\nHire Date: {HireDate}");
         }
     }
