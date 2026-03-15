@@ -1,22 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace College_system
 {
     internal class Department
     {
-        string? Name { get; set; }
-        public string? DepartmentID { get; set; }
-        string? Corses { get; set; }
-        string? Doctor { get; set; }
-        string? HeadOfDepartment { get; set; }
-
-
-
-
-
+        static int _counter = 0;
+        public string? Name { get; set; }
+        public string? ID { get; set; } 
+        public List<Course>? Courses { get; set; }
+        public List<Doctor>? Doctors { get; set; }
+        public Doctor? HeadOfDepartment { get; set; }
+        public Department()
+        {
+            ID = $"DEP{_counter++}";
+        }
+        //                               optional ممكن يكون فيه رئيس قسم او لا
+        public Department(string name, Doctor? headOfDepartment = null)
+        {
+            ID = $"DEP{_counter++}";
+            Name = name;
+            Courses = [];
+            Doctors = [];
+            HeadOfDepartment = headOfDepartment;
+        }
+        public void Display()
+        {
+            Console.Write($"Department Name : {Name}\nDepartment ID : {ID}\nHead Of Department : {HeadOfDepartment}");
+        }
     }
 }

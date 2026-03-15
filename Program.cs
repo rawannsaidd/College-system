@@ -8,25 +8,27 @@ namespace College_system
     {
         static void Main()
         {
+
+            //Student st = new Student();
+            //Console.WriteLine(st.ID);
             bool stayInProgram = true;
             while (stayInProgram)
             {
                 Console.WriteLine("=== College System ===\r\n1. Add Student\r\n2. Add Staff Member\r\n3. View All Students\r\n4. View All Staff Members\r\n5. Log Out");
-                int choose = 0;
-                bool isConverted = int.TryParse(Console.ReadLine(), out choose);
+                bool isConverted = int.TryParse(Console.ReadLine(), out int choose);
                 while (isConverted == false)
                 {
                     Console.WriteLine("pleas try again");
                     continue;
                 }
-                List<Student> st = new List<Student>();
+                List<Student> stu = [];            
                 switch (choose)
                 {
                     case 1:
                         Console.Clear();
                         while (true)
                         {
-                            Student s = new Student();
+                            Student s = new ();
                             Console.WriteLine("enter student National Id :");
                             s.NationalId = Console.ReadLine()!;
                             Console.WriteLine("enter student name");
@@ -47,7 +49,7 @@ namespace College_system
                             s.Email = Console.ReadLine()!;
                             Console.WriteLine("enter student Address :");
                             s.Address = Console.ReadLine()!;
-                            st.Add(s);
+                            stu.Add(s);
                             break;
                         }
                     break;

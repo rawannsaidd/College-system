@@ -4,78 +4,91 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace College_system
 {
     public class Person
     {
-        protected static int _counter = 1; // بروتيكديت برضو عشان الكلاسات الوارثه بس هي اللي تشوفه 
+        protected static int _counter = 0; // بروتيكديت برضو عشان الكلاسات الوارثه بس هي اللي تشوفه 
         public string? ID { get; protected set; } // بروتيكديت سيت بتخلي الكلاسات الوارثه بس هي اللي يغير فيه
         string _nationalId = string.Empty;       
 
-        string? _name ;
+        string _name = string.Empty;
         DateOnly _birthDate;
-        string? _gender;
+        int _age;
+        string _gender = string.Empty;
 
         string _phone = string.Empty;
-        string _email;
-        string _address;
-
+        string _email = string.Empty;
+        string _address = string.Empty;
         public Person()
         {
-
+            ID = $"{_counter++}";
         }
-        public Person(string nationalId, string name, DateOnly birthDate, string gender, string phone, string email, string address)
+        public Person(string nationalId, string name, DateOnly birthDate,int age, string gender, string phone, string email, string address)
         {
             ID = $"{_counter++}";
             NationalId = nationalId;
             Name = name;
             BirthDate = birthDate;
+            Age = age;
             Gender = gender;
             Phone = phone;
             Email = email;
             Address = address;
           //property = parameter
-
         }
         public string NationalId
         {
             set
             {
-                if (value.Length! < 14 || value.Length! > 14)
+                if (value.Length! < 14 || value.Length! > 14) // لو الرقم القومي اقل من 14 رقم
                     throw new ArgumentException("the national ID most be 14 number");
                 else
                    _nationalId = value;
             }
             get { return _nationalId; }
         }
-        public string? Name
+        public string Name
         {
             set
             {
-                if (string.IsNullOrEmpty(value) || value.Any(r=>char.IsDigit(r)))
+                if (string.IsNullOrEmpty(value) || value.Any(r=>char.IsDigit(r))) // لو الاسم فاضي او فيه ارقام
                     throw new ArgumentException("name is incorrect!");
                 else
                     _name = value;
             }
             get { return _name; }
         }
+
+        public int Age
+        {
+            get
+            {
+                int age = DateTime.Now.Year - _birthDate.Year;
+                if (DateTime.Now.DayOfYear < _birthDate.DayOfYear)
+                    age--;
+                return _age;
+            }
+        }
+
         public DateOnly BirthDate
         {
             set
             {
-                int age = DateTime.Now.Year - value.Year;
+                int age = DateTime.Now.Year - value.Year; // لو عيد ميلاده لسه مجاش فعليا بس السنه بتقول انه جه ينقص سنه
                 if (DateTime.Now.DayOfYear < value.DayOfYear)
                     age--;
 
-                if (value >= DateOnly.FromDateTime(DateTime.Now) || age < 17)
-                    throw new ArgumentException("❌ التاريخ غلط!");
+                if (value >= DateOnly.FromDateTime(DateTime.Now) || age < 18) //
+                    throw new ArgumentException("Birth Date is incorrect!");
                 else
                     _birthDate = value;
             }
             get { return _birthDate; }
         }
-        public string? Gender
+        public string Gender
         {
             set
             {
@@ -104,14 +117,14 @@ namespace College_system
         {
             set
             {
-                if (!value.Contains('@') || !value.Contains('.'))// لو مفيهوش علامات الemail الاساسيه
+                if (!value.Contains('@') || !value.Contains('.'))// لو مفيهوش العلامات الاساسيه ف الemail
                     throw new ArgumentException("email is incorrect!");
                 else
                     _email = value;
             }
             get { return _email; }
         }
-        public string? Address
+        public string Address
         {
             set
             {

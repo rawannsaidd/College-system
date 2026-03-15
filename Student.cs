@@ -11,25 +11,26 @@ namespace College_system
 {
     internal class Student : Person
     {
-        static int _studentCounter = 1;
-        string Major {  get; set; }
-        bool IsPaid { get; set; }
-        string DepartmentID { get; set; }
+        public string? Major {  get; set; }
+        public bool IsPaid { get; set; }
+        public string? DepartmentID { get; set; }
         int _level;
         double _gpa;
+        public List <Course>? Course { get; set; }
         public Student()
         {
-
+            ID = $"S{_level}{DepartmentID}{_counter++}";
         }
         public Student (string nationalId, string name, DateOnly birthDate, string gender, string phone, string email, string address, string major, int level, double gpa ,bool isPaid, string departmentId) : base(nationalId, name, birthDate, gender, phone, email, address)
         {
-            //     ex level 1 dept 2 (code)
-            ID = $"S{level}{DepartmentID}{_studentCounter++}";  // 
+            //      level 1 dept 2 (code)
+            ID = $"S{level}{DepartmentID}{_counter++}";  // 
             Major = major; // بنعرف ان الفيلدس الي بره هي هي اللي هتتبعت في الميثود 
             Level = level;
             Gpa = gpa;
             IsPaid = isPaid;
             DepartmentID = departmentId;
+            Course = [];
         }
         public int Level
         {
@@ -54,6 +55,8 @@ namespace College_system
             base.Display();
             Console.Write($"Major : {Major}\nLevel : {Level}\nGpa : {Gpa}\nIsPaid : {IsPaid}");
         }
-     
+        public void ShowCourses() => Course?.ForEach(s => Console.WriteLine(s.Name));
+        
+
     }
 }
