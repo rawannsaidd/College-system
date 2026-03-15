@@ -30,7 +30,7 @@ namespace College_system
             Gpa = gpa;
             IsPaid = isPaid;
             DepartmentID = departmentId;
-            Course = [];
+            Course = new List<Course>();
         }
         public int Level
         {

@@ -23,8 +23,8 @@ namespace College_system
         {
             ID = $"DEP{_counter++}";
             Name = name;
-            Courses = [];
-            Doctors = [];
+            Courses = new List<Course>();
+            Doctors = new List<Doctor>();
             HeadOfDepartment = headOfDepartment;
         }
         public void Display()

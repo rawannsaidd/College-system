@@ -14,7 +14,7 @@ namespace College_system
     }
     public class Person
     {
-        protected static int _counter = 1; // بروتيكديت برضو عشان الكلاسات الوارثه بس هي اللي تشوفه 
+        protected static int _counter = 1; // بروتيكديت عشان الكلاسات الوارثه بس هي اللي تشوفه 
         public string? ID { get; protected set; } // بروتيكديت سيت بتخلي الكلاسات الوارثه بس هي اللي يغير فيه
         public Gender Gender { get; set; }
         string _nationalId = string.Empty;       
