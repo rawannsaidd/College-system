@@ -8,16 +8,19 @@ using System.Xml.Linq;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace College_system
 {
+    public enum Gender 
+    {
+        female, male
+    }
     public class Person
     {
-        protected static int _counter = 0; // بروتيكديت برضو عشان الكلاسات الوارثه بس هي اللي تشوفه 
+        protected static int _counter = 1; // بروتيكديت برضو عشان الكلاسات الوارثه بس هي اللي تشوفه 
         public string? ID { get; protected set; } // بروتيكديت سيت بتخلي الكلاسات الوارثه بس هي اللي يغير فيه
+        public Gender Gender { get; set; }
         string _nationalId = string.Empty;       
 
         string _name = string.Empty;
         DateOnly _birthDate;
-        int _age;
-        string _gender = string.Empty;
 
         string _phone = string.Empty;
         string _email = string.Empty;
@@ -26,13 +29,12 @@ namespace College_system
         {
             ID = $"{_counter++}";
         }
-        public Person(string nationalId, string name, DateOnly birthDate,int age, string gender, string phone, string email, string address)
+        public Person(string nationalId, string name, DateOnly birthDate, Gender gender, string phone, string email, string address)
         {
             ID = $"{_counter++}";
             NationalId = nationalId;
             Name = name;
             BirthDate = birthDate;
-            Age = age;
             Gender = gender;
             Phone = phone;
             Email = email;
@@ -43,7 +45,7 @@ namespace College_system
         {
             set
             {
-                if (value.Length! < 14 || value.Length! > 14) // لو الرقم القومي اقل من 14 رقم
+                if (value.Length != 14) // لو الرقم القومي اقل من 14 رقم
                     throw new ArgumentException("the national ID most be 14 number");
                 else
                    _nationalId = value;
@@ -61,7 +63,6 @@ namespace College_system
             }
             get { return _name; }
         }
-
         public int Age
         {
             get
@@ -69,10 +70,9 @@ namespace College_system
                 int age = DateTime.Now.Year - _birthDate.Year;
                 if (DateTime.Now.DayOfYear < _birthDate.DayOfYear)
                     age--;
-                return _age;
+                return Age;
             }
         }
-
         public DateOnly BirthDate
         {
             set
@@ -88,26 +88,12 @@ namespace College_system
             }
             get { return _birthDate; }
         }
-        public string Gender
-        {
-            set
-            {
-                value = value.Trim().ToLower();// لو فيه مسافات او حروف كبيره
-                if (value != "male" && value != "female")
-                throw new ArgumentException("gender most be female or male");
-
-                else
-                    _gender = value;
-            }
-            get { return _gender; }
-        }
         public string Phone
         {
             set
             {
                 if (value.Length != 11 || !value.StartsWith("01"))// لو مش مكون من 11 رقم او مش بادئ ب01
                     throw new ArgumentException("phone is incorrect!");
-
                 else
                     _phone = value;
             }
@@ -135,7 +121,7 @@ namespace College_system
             }
             get { return _address; }
         }
-        public virtual void Display() => Console.WriteLine($"Id: {ID}\nname: {_name}\nnational Id : {_nationalId}\nbirth date : {_birthDate}\ngender: {_gender}\nphone: {_phone}\nemail:{_email}\naddress:{_address}");
+        public virtual void Display() => Console.WriteLine($"Id: {ID}\nname: {_name}\nnational Id : {_nationalId}\nbirth date : {_birthDate}\ngender: {Gender}\nphone: {_phone}\nemail:{_email}\naddress:{_address}");
     }
 }
 

@@ -8,11 +8,11 @@ namespace College_system
 {
     internal class Course
     {
-        static int _counter = 0;
-        public string ID { get; set; }
+        static int _counter = 1;
+        public string ID { get; set; } 
         public string? Code { get; set; }
         public string? Name { get; set; }
-        public int? Hours { get; set; }
+        public int Hours { get; set; }
         public Doctor? Doctor { get; set; }
         public Department? Department { get; set; }
         public Course()
@@ -30,7 +30,7 @@ namespace College_system
         }
         public void Display()
         {
-            Console.Write($"Course ID : {ID}\nCourse Code : {Code}\nCourse Name : {Name}\nCourse Hours : {Hours}\nCourse Doctor : {Doctor}\nCourse Department : {Department}");
+            Console.Write($"Course ID : {ID}\nCourse Code : {Code}\nCourse Name : {Name}\nCourse Hours : {Hours}\nCourse Doctor : {Doctor?.Name}\nCourse Department : {Department?.Name}");
         }
     }
 }

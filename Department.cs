@@ -8,7 +8,7 @@ namespace College_system
 {
     internal class Department
     {
-        static int _counter = 0;
+        static int _counter = 1;
         public string? Name { get; set; }
         public string? ID { get; set; } 
         public List<Course>? Courses { get; set; }
@@ -29,7 +29,11 @@ namespace College_system
         }
         public void Display()
         {
-            Console.Write($"Department Name : {Name}\nDepartment ID : {ID}\nHead Of Department : {HeadOfDepartment}");
+            Console.Write($"Department Name : {Name}\nDepartment ID : {ID}\nHead Of Department : {HeadOfDepartment?.Name}");
+            Console.WriteLine("departnent courses");
+            Courses?.ForEach(c => Console.WriteLine($"  - {c.Name}"));
+            Console.WriteLine("departnent doctors");
+            Doctors?.ForEach(d => Console.WriteLine($"  - {d.Name}"));
         }
     }
 }

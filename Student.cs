@@ -21,9 +21,9 @@ namespace College_system
         {
             ID = $"S{_level}{DepartmentID}{_counter++}";
         }
-        public Student (string nationalId, string name, DateOnly birthDate, string gender, string phone, string email, string address, string major, int level, double gpa ,bool isPaid, string departmentId) : base(nationalId, name, birthDate, gender, phone, email, address)
+        public Student (string nationalId, string name, DateOnly birthDate, Gender gender, string phone, string email, string address, string major, int level, double gpa ,bool isPaid, string departmentId) : base(nationalId, name, birthDate, gender, phone, email, address)
         {
-            //      level 1 dept 2 (code)
+            //       level 1 dept 2 (code)
             ID = $"S{level}{DepartmentID}{_counter++}";  // 
             Major = major; // بنعرف ان الفيلدس الي بره هي هي اللي هتتبعت في الميثود 
             Level = level;
@@ -38,6 +38,7 @@ namespace College_system
             {
                 if (value < 1 || value > 4)
                     throw new AggregateException("the level is incorrect!");
+                _level = value;
             }
             get { return _level; }
         }
@@ -46,7 +47,8 @@ namespace College_system
             set
             {
                 if (value < 0 || value > 4)
-                    throw new AggregateException("the level is incorrect!");
+                    throw new ArgumentException("the level is incorrect!");
+                _gpa = value;
             }
             get { return _gpa; }
         }

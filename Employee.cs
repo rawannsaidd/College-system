@@ -13,11 +13,11 @@ namespace College_system
         public Employee()
         { 
             //     Admin ID
-            ID = $"A{_counter}";
+            ID = $"A{_counter++}";
         }
-        public Employee(string nationalId, string name, DateOnly birthDate, string gender, string phone, string email, string address, double salary, string jobTitle, DateOnly hiredate) : base( nationalId, name, birthDate, gender, phone, email, address)
+        public Employee(string nationalId, string name, DateOnly birthDate, Gender gender, string phone, string email, string address, double salary, string jobTitle, DateOnly hiredate) : base( nationalId, name, birthDate, gender, phone, email, address)
         {
-            ID = $"A{_counter}";
+            ID = $"A{_counter++}";
             Salary = salary;
             JobTitle = jobTitle;
             HireDate = hiredate;
@@ -27,7 +27,7 @@ namespace College_system
             set
             {
                 if (string.IsNullOrEmpty(value))
-                    throw new AggregateException("The job title is incorrect!");
+                throw new ArgumentException("The job title is incorrect!");
                 else
                     _jobTitle = value;
             }
@@ -38,7 +38,7 @@ namespace College_system
             set
             {
                 if (value > DateOnly.FromDateTime(DateTime.Now))
-                    throw new ArgumentException("❌ تاريخ التعيين مش صح!");
+                    throw new ArgumentException("Hire Date is incorrect!");
                 else
                     _hiredate = value;
             }
