@@ -23,7 +23,7 @@ namespace College_system
         }
         public Student (string nationalId, string name, DateOnly birthDate, Gender gender, string phone, string email, string address, string major, int level, double gpa ,bool isPaid, string departmentId) : base(nationalId, name, birthDate, gender, phone, email, address)
         {
-            //       level 1 dept 2 (code)
+            //      level 1    dept 2       (code)
             ID = $"S{level}{DepartmentID}{_counter++}";  // 
             Major = major; // بنعرف ان الفيلدس الي بره هي هي اللي هتتبعت في الميثود 
             Level = level;
