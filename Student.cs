@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Net;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+﻿
 namespace College_system
 {
     internal class Student : Person
@@ -40,7 +32,7 @@ namespace College_system
                     throw new AggregateException("the level is incorrect!");
                 _level = value;
             }
-            get { return _level; }
+            get { return _level;}
         }
         public double Gpa
         {
@@ -58,7 +50,5 @@ namespace College_system
             Console.Write($"Major : {Major}\nLevel : {Level}\nGpa : {Gpa}\nIsPaid : {IsPaid}");
         }
         public void ShowCourses() => Course?.ForEach(s => Console.WriteLine(s.Name));
-        
-
     }
 }

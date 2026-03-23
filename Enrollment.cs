@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 namespace College_system
 {
     public enum EnrollmentStatus { Active, Dropped, Banned }
-    public enum Semester  { Fall, Spring, Summer }
+    public enum Semester { Fall, Spring, Summer }
     internal class Enrollment
     {
         static int _counter = 1;
@@ -17,7 +13,6 @@ namespace College_system
         public Semester Semester{ get; set; }
         public EnrollmentStatus Status { get; set; }
         public double Grade { get; set; }
-
         public Enrollment()
         {
             ID = $"ENR{_counter++}";
@@ -33,7 +28,7 @@ namespace College_system
             CourseId = courseId;
             Year = year;
             Semester = semester;
-            Status = EnrollmentStatus.Active; 
+            Status = EnrollmentStatus.Active;
             Grade = 0.0;
         }
         public void DisplayInfo() =>  Console.WriteLine($"Enrollment ID: {ID}\nStudent ID: {StudentId}\nCourse ID: {CourseId}\nYear: {Year}\nSemester: {Semester}\nStatus: {Status}\nGrade: {Grade}");
