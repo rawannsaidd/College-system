@@ -1,43 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-
+﻿
 namespace College_system
 {
+    public enum PaymentStatus { Pending, Paid, Refunded } // لسه مدفعش \ دفع \ مسترد
     internal class Payment
     {
         static int _counter = 1;
-        public string? PaymentID {  get; set; }
+        public string? PaymentID {  get; private set; }
         public string? StudentID { get; set; }
         public double Amount { get; set; }
-        public DateTime PaymentDate { get; set; }
+        public DateTime PaymentDate { get; private set; }
         public string? CoursID { get; set; }
-        public Payment (string studentid, double amount, DateTime paymentDatedate)
+        public PaymentStatus Status { get; set; }
+        public Payment(string studentId, double amount, string? coursId = null)
         {
             PaymentID = $"PAY{_counter++}";
-            StudentID = studentid;
+            StudentID = studentId;
             Amount = amount;
-            PaymentDate = paymentDatedate;
-        }
-        public Payment(string studentid, double amount, DateTime paymentDatedate, string coursid)
-        {
-            PaymentID = $"{_counter}";
-            StudentID = studentid ;
-            Amount = amount;
-            PaymentDate = paymentDatedate;
-            CoursID = coursid;
+            PaymentDate = DateTime.Now;
+            CoursID = coursId;
+            Status = PaymentStatus.Pending;
         }
         public void Display()
         {
-            Console.Write($"Payment ID : {PaymentID}\nStudent ID : {StudentID}\n Amount : {Amount}\n Payment Date : {PaymentDate}\n");
+            Console.Write($"Payment ID : {PaymentID}\nStudent ID : {StudentID}\n Amount : {Amount}\n Payment Date : {PaymentDate}\nCourse ID : {CoursID}\nStatus : {Status}");
         }
-        public void DisplayCours()
-        {
-            Console.Write($"Payment ID : {PaymentID}\nStudent ID : {StudentID}\n Amount : {Amount}\n Payment Date : {PaymentDate}\nCourse ID : {CoursID}\n");
-        }
-
     }
 }
