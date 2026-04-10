@@ -87,7 +87,6 @@ namespace College_system
             List<Payment> payments = new List<Payment>();
             List<Grade> grades = new List<Grade>();
 
-
             Console.WriteLine("(1) Student Management\n(2) Staff Management\n(3) Department Management\n(4) Enrollment and Grades\n(5) Payments\n(0) Logout");
             int Choise = ReadInt();
             while (Choise != 0)
