@@ -28,11 +28,19 @@ namespace College_system
         }
         static Student ReadStudent() // add student
         {
-            Console.WriteLine("Enter student information:");
+            Console.WriteLine("Enter student information:\n");
 
-            Console.Write("National ID: ");
-            string nationalId = Console.ReadLine() ?? string.Empty;
+            string nationalId;
+            do
+            {
+                Console.Write("National ID: ");
+                nationalId = Console.ReadLine() ?? string.Empty;
 
+                if (nationalId.Length != 14)
+                    Console.WriteLine("the national ID most be 14 number\n  ************************ ");
+                
+
+            } while (nationalId.Length != 14);
             Console.Write("Name: ");
             string name = Console.ReadLine() ?? string.Empty;
 
@@ -94,6 +102,7 @@ namespace College_system
                 switch (Choise)
                 {
                     case 1:
+                        Console.Clear();
                         Console.WriteLine("(1) Add student\n(2) Edit student information \n(3) Search for student\n(4) View all students\n(5) Delete student\n(0) Back");
                         int studentChoise = ReadInt();
                         while (studentChoise != 0)
@@ -101,6 +110,7 @@ namespace College_system
                             switch (studentChoise)
                             { 
                                 case 1: // add student
+                                    Console.Clear();
                                     Student newStudent = ReadStudent();
                                     students.Add(newStudent);
                                     Console.WriteLine("Student added successfully!");
